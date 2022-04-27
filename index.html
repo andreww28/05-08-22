@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Mali:wght@400;700&display=swap" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+    <link rel="stylesheet" href='./style.css'>
+    <link rel="stylesheet" href='./envelope.css'>
+    <title>Greetings</title>
+  </head>
+  <body>
+    <div class="home-container">
+      <div class="main">
+        <div class='canvas-div'>
+          <h1 class="greeting-title">Greetings for You!</h1>
+          <canvas></canvas> 
+          <button class='open-envelope-btn'>Open it</button>
+        </div>
+
+        <div class="envelope">
+            <div class="top-side"><button class="open-it-circle">Open</button></div>
+            <div class="left-side"></div>
+            <div class="envelope-content">
+              <h4>Happy Birthday</h4>
+            </div>
+            <div class="right-side"></div>
+            <div class="bottom-side"></div>
+
+        </div>
+        
+        <div class='blur-bg'></div>
+
+        <div class="home">
+          <h1>GREETINGS FOR YOU!</h1>
+          <div class="button-div">
+            <button class="home-btn start-btn">START</button>
+            <button class="home-btn about-btn">ABOUT</button>
+          </div>
+        </div>
+
+        <div class="about">
+          <h1>ABOUT</h1>
+          <p id="about-desc">I built this web application for you, just only for you. I want to greet you in a unique and different way, so I came up with this idea where I am excellent on this field. Hope you appreciate it!! :)</p>
+          <div class="button-div">
+            <button class="home-btn back-btn">BACK</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class='bottom-border border'></div>
+    </div>
+    
+    <script src='./script/index.js'></script>
+    <script src='./script/scene/scene1.js'></script>
+    <script src='./script/scene/scene2.js'></script>
+    <script src='./script/scene/scene3.js'></script>
+    <script src='./script/scene/scene4.js'></script>
+    <script src='./script/scene/scene6.js'></script>
+  </body>
+</html>
