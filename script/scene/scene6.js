@@ -17,7 +17,8 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 	happy_emoji.src = './assets/img/emoji/emoji11.png'
 	thankful_emoji.src = './assets/img/emoji/emoji7.png'
 
-
+	let enve_close_time = undefined;
+	let enve_close_gap_time = undefined;
 	let local_time_last = undefined;
 	let local_time_gap = undefined;
 	let envelope_received = false;
@@ -49,11 +50,11 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 		ctx.drawImage(girl_character, 500, canvas_height - 300, 80, 330);
 
 		local_time_gap = currentTime - local_time_last;
-		draw_emoticons(time_gap);
+		draw_emoticons(time_gap, currentTime);
 		(!envelope_received && time_gap >= 3000) && display_instruction(instructions.third);
 	}
 
-	function draw_emoticons(time_gap) {
+	function draw_emoticons(time_gap, currentTime) {
 		if((time_gap >= 3500 && time_gap <= 5000) && !envelope_received) {
 			ctx.drawImage(shy_emoji, 300, canvas_height - 350, 100, 100);	
 		}
@@ -70,10 +71,22 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 				}
 			}	
 		}
+
+		if(Envelope().get_count_close() == 1) {
+			enve_close_time = new Date().getTime();
+			Envelope().set_count_close(2);
+		}
+
+		enve_close_gap_time = currentTime - enve_close_time;
+
+		if(enve_close_gap_time >= 2000 && enve_close_gap_time <= 4000) {
+			ctx.drawImage(thankful_emoji, 500, canvas_height - 300, 80, 80);	
+		}
 	}
 
 	return {
 		draw_beach,
-		set_envelope_received : (bool) => envelope_received = bool
+		set_envelope_received : (bool) => envelope_received = bool,
+		get_local_time_gap: () => enve_close_gap_time
 	}
 }

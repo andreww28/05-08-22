@@ -36,6 +36,9 @@ const Home_event = () => {
 
 const Canvas = () => {
 	const canvas = document.querySelector('canvas');
+	const main = document.querySelector('.main');
+	const bg_music = new Audio('./assets/sound/make_you_mine.mp4');
+
 	const ctx = canvas.getContext('2d');
 	const height_ratio = 0.6;
 
@@ -46,6 +49,7 @@ const Canvas = () => {
 	
 	let click_key = false;
 	let fadein_bool = false;
+	let remove_canvas = false;
 
 	let scene_timer_last = undefined;
 	let currentTime = undefined;
@@ -53,6 +57,7 @@ const Canvas = () => {
 	let first_instruc_width = undefined;
 	let instruc_width = 0;
 
+	let vol = 0.50;
 	let scene_count = 1;
 	let opacity = 1;
 	
@@ -70,11 +75,6 @@ const Canvas = () => {
 	let scene_5 = Scene_1(ctx, canvas.width, canvas.height, solo=false);
 	let scene_6 = Scene_6(ctx, canvas.width, canvas.height, instructions);
 
-
-	function play_audio(audio) {
-		new Audio(audio).play();
-	}
-
 	function change_scene(scene_no) {
 		ctx.fillStyle = '#AEE9FC';
 		ctx.fillRect(0,0,canvas.width, canvas.height);
@@ -84,13 +84,14 @@ const Canvas = () => {
 		} else if (scene_no == 2) {
 			scene_3.draw_inside_home();
 		} else if(scene_no == 3) {
-			scene_4.draw_outside_home(new Date().getTime() - currentTime);		
+			scene_4.draw_outside_home(new Date().getTime() - currentTime);	
 		} else if(scene_no == 4) {
 			scene_5.draw_travel(solo=false, null);
 		} else if (scene_no == 5) {
 			scene_6.draw_beach();
+		} else if(scene_no == 6) {
+			draw_last_part("For the last part! Enjoy!");
 		}
-		
 
 		scene_timer_last = new Date().getTime();
 	}
@@ -102,6 +103,16 @@ const Canvas = () => {
 		}else if(opacity <= 0){  //if less than 0.01 then, clear rect, and turn off scene 1
 			fadein_bool = true;
 		}
+	}
+
+	function draw_last_part(instruc) {
+		ctx.fillStyle = '#111';
+		ctx.fillRect(0,0,canvas.width, canvas.height);
+		ctx.fillStyle = '#AEE9FC';
+		ctx.font = '72px Kalam';
+		instruc_width = ctx.measureText(instruc).width;
+
+		ctx.fillText(instruc, ((canvas.width + instruc_width) / 2) - instruc_width , canvas.height / 2);
 	}
 
 
@@ -162,22 +173,55 @@ const Canvas = () => {
 
 		if(scene_count == 6) {
 			scene_6.draw_beach(time_gap, currentTime);
+
+			console.log(scene_6.get_local_time_gap())
+			if(scene_6.get_local_time_gap() >= 7000) {
+				transition();
+			}
+		}
+
+		if(scene_count == 7) {
+			draw_last_part("For the last part! Enjoy!");
+
+			if(time_gap >= 4000) {
+				remove_canvas = true;
+				fadeOutMusic(bg_music);
+				main.style.background = "linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(50, 24, 111, 0.2) 100%), url('./assets/img/couple.jpg')"
+				gsap.to('canvas', {duration: 1, scale: 0, opacity: 0, ease: 'sine.out'});
+				gsap.to('.greeting-title', {duration: 1, y: -100, opacity: 0, ease: 'sine.out'});
+				gsap.to('.blur-bg', {duration: 0.4, delay:0.6, opacity:0 });
+				
+			}
 		}
 
 
 		if(fadein_bool) { //fade_in
+			change_scene(scene_count);
 			if (opacity <= 1) opacity += 0.009;
 			if(opacity > 1) {
 				opacity = 1;
 				fadein_bool = false;
 				scene_count += 1;
 			}
-			change_scene(scene_count);
 		}
 
 
 		ctx.globalAlpha = opacity;
-		requestAnimationFrame(animate);					
+
+		if(!remove_canvas) requestAnimationFrame(animate);					
+	}
+
+	function fadeOutMusic (audio) {
+		setInterval(()=>{
+			if(vol.toFixed(2) > 0) {
+				vol -= 0.05;
+				audio.volume = vol.toFixed(2);
+			}else{
+				clearInterval(fadeOutMusic);
+				audio.pause();
+				audio.currentTime = 0;
+			}
+		}, 200)
 	}
 
 
@@ -185,7 +229,8 @@ const Canvas = () => {
 		if (e.keyCode == 83 && !click_key && scene_count == 1){
 			click_key = true;
 			scene_timer_last = new Date().getTime();
-			play_audio('./assets/sound/make_you_mine.mp4')
+			bg_music.play();
+			bg_music.volume = vol;
 		} else if(e.keyCode == 84 && scene_count == 4) {
 			scene_4.giving_cake()
 		} else if(e.keyCode == 71 && scene_count == 6) {
@@ -199,7 +244,7 @@ const Canvas = () => {
 
 };
 
-
+let count_close = 0;
 const Envelope = () => {
 	const open_envelope_btn = document.querySelector('.open-it-circle');
 	let is_envelope_open = false;
@@ -219,6 +264,7 @@ const Envelope = () => {
 
 	function close() {
 		is_envelope_open = false;
+		count_close++;
 		gsap.to('.envelope', {duration: 1, delay: 1.6, y: 0, ease: "slow(0.5, 0.7, false)"});
 		gsap.to('.top-side', {duration:1, delay: 1.6, rotationX: 160, zIndex: 6, ease: "sine.out"});
 		gsap.to('.envelope-content', {duration:1.5, y: 0, zIndex: 3, ease: "back.in(3)"});
@@ -241,6 +287,9 @@ const Envelope = () => {
 	return {
 		show,
 		_event,
+		get_count_close : () => count_close,
+		set_count_close : (newCount) => count_close = newCount,
+		get_is_envelope_open : () => is_envelope_open
 	}
 }
 

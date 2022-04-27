@@ -67,6 +67,7 @@
 }
 
 .envelope-content {
+	padding: 3em 2em;
 	background: #E0A8C9;
 	width:  90%;
 	height:  80%;
@@ -75,5 +76,20 @@
 	left:  50%;
 	transform:  translateX(-50%);
 	z-index:  3;
+	font-family: 'Satisfy', cursive;
+	text-align: center;
+	color: #bf5595;
+	font-size: 1.5rem;
+	overflow: hidden;
+}
+
+.envelope-content h4 {
+	color: #b70e73;
+	font-size: 2.4rem;
+}
+
+.envelope-content img {
+	width: 11em;
+	opacity: 0.6;
 }
 
