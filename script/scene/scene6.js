@@ -34,24 +34,22 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 	function draw_beach(time_gap, currentTime) { 
 		ctx.drawImage(empty_beach, 0, 0, canvas_width, canvas_height);
 
-		if(time_gap >= 3000) {
-			if(!envelope_received){
-				ctx.drawImage(envelope, 355, canvas_height - 190, 50, 30);			
-				local_time_last = new Date().getTime();		
+		if(time_gap >= 3000) { //after 3s, execue this block
+			if(!envelope_received){ 
+				ctx.drawImage(envelope, 355, canvas_height - 190, 50, 30); 	//draw envelope on boy side		
+				local_time_last = new Date().getTime();	//set this time before giving the envelope or before pressing the 'g' key
 					
 			}else if(envelope_received) {
-				if(!envelope_open) {
-					ctx.drawImage(envelope, 480, canvas_height - 170, 50, 30);								
-				} 
+				ctx.drawImage(envelope, 480, canvas_height - 170, 50, 30); //if envelope receive, draw envelope on girl side				
 			}	
 		}
 
-		ctx.drawImage(boy_character, 300, canvas_height - 350, 90, 450);
+		ctx.drawImage(boy_character, 300, canvas_height - 350, 90, 450); 
 		ctx.drawImage(girl_character, 500, canvas_height - 300, 80, 330);
 
-		local_time_gap = currentTime - local_time_last;
+		local_time_gap = currentTime - local_time_last; //it is the time between the current time and the time after the envelope receive.
 		draw_emoticons(time_gap, currentTime);
-		(!envelope_received && time_gap >= 3000) && display_instruction(instructions.third);
+		(!envelope_received && time_gap >= 3000) && display_instruction(instructions.third); //if time is greater than 2999s and envelope is not receive, display isntruction
 	}
 
 	function draw_emoticons(time_gap, currentTime) {
@@ -65,16 +63,16 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 			} else if(local_time_gap > 3000 && local_time_gap <= 6000) {
 				ctx.drawImage(thankful_emoji, 500, canvas_height - 300, 80, 80);	
 
-				if(!show_btn){
+				if(!show_btn){  //if not show_btn, show the button with the text "open it"
 					gsap.to('.open-envelope-btn', {duration: 0.7, y:0, opacity: 1})
 					show_btn = true;
 				}
 			}	
 		}
 
-		if(Envelope().get_count_close() == 1) {
-			enve_close_time = new Date().getTime();
-			Envelope().set_count_close(2);
+		if(Envelope().get_count_close() == 1) { //after closing the envelope in scene 6, execute this block
+			enve_close_time = new Date().getTime(); // set this time after closing the envelope.
+			Envelope().set_count_close(2); //this function will prevent to execute this block next time.
 		}
 
 		enve_close_gap_time = currentTime - enve_close_time;
@@ -87,6 +85,7 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 	return {
 		draw_beach,
 		set_envelope_received : (bool) => envelope_received = bool,
+		set_envelope_open : (bool) => envelope_open = bool,
 		get_local_time_gap: () => enve_close_gap_time
 	}
 }

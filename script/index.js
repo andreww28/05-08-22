@@ -6,8 +6,8 @@ const Home_event = () => {
 	const show_envelope_btn = document.querySelector('.open-envelope-btn');
 		
 	about_btn.addEventListener('click', () => {
-	gsap.fromTo('.about', {y:100, opacity:0}, {duration:1, y: 0, opacity: 1});
-	gsap.to('.home', {duration:1, y: 1000, opacity: 0});		
+		gsap.fromTo('.about', {y:100, opacity:0}, {duration:1, y: 0, opacity: 1});
+		gsap.to('.home', {duration:1, y: 1000, opacity: 0});		
 	})
 
 	back_btn.addEventListener('click', () => {
@@ -22,29 +22,29 @@ const Home_event = () => {
 		gsap.to('.bottom-border', {duration: 0.3, y: 100})
 		gsap.fromTo('.blur-bg', {opacity: 0, filter: 'blur(0px)'}, {delay: 0.2, duration: 0.4, opacity: 1, filter: 'blur(8px)'})
 
-		gsap.fromTo('.canvas-div', {zIndex:0}, {delay: 0.4, duration:0.8, zIndex:999});
+		gsap.fromTo('.canvas-div', {zIndex:0}, {delay: 0.4, duration:0.8, zIndex:5});
 		gsap.fromTo('.greeting-title', {color: '#fff', opacity: 0, y:-50}, {duration: 1.4, delay: 1, color: '#AEE9FC', opacity: 1, y: 0});
-		gsap.fromTo('canvas', {opacity: 0, scale: .4, zIndex:0}, {delay: 0.4, duration: 0.8, opacity: 1, scale: 1, zIndex: 999});
+		gsap.fromTo('canvas', {opacity: 0, scale: .4, zIndex:0}, {delay: 0.4, duration: 0.8, opacity: 1, scale: 1, zIndex: 6});
 	})
 
-	show_envelope_btn.addEventListener('click', ()=> {
+	show_envelope_btn.addEventListener('click', ()=> {	//show the envelope in 100% when the button click in scene 6
 		Envelope().show()
-		gsap.to('.open-envelope-btn', {duration: 0.5, y: 100, opacity:0})
+		gsap.to('.open-envelope-btn', {duration: 0.5, y: 100, opacity:0}) //remove this button from screen
 	})
 };
 
 
 const Canvas = () => {
 	const canvas = document.querySelector('canvas');
-	const main = document.querySelector('.main');
 	const bg_music = new Audio('./assets/sound/make_you_mine.mp4');
+	const last_part_bg_music = new Audio('./assets/sound/sky_full_of_stars.mp4');
 
 	const ctx = canvas.getContext('2d');
-	const height_ratio = 0.6;
+	const height_ratio = 0.6;	
 
 	canvas.width = 1000;
-	canvas.height = canvas.width * height_ratio;
-	ctx.font = "30px Arial";
+	canvas.height = canvas.width * height_ratio; //to keep the ratio of canvas size relative to its width
+	ctx.font = "30px Kalam";	//font style and size to all instructions
 	window.addEventListener('keydown', canvas_event.bind(event), true)
 	
 	let click_key = false;
@@ -68,12 +68,12 @@ const Canvas = () => {
 	} 
 
 
-	let scene_1 = Scene_1(ctx, canvas.width, canvas.height, solo=true);
-	let scene_2 = Scene_2(ctx, canvas.width, canvas.height);
-	let scene_3 = Scene_3(ctx, canvas.width, canvas.height);
-	let scene_4 = Scene_4(ctx, canvas.width, canvas.height, instructions);
-	let scene_5 = Scene_1(ctx, canvas.width, canvas.height, solo=false);
-	let scene_6 = Scene_6(ctx, canvas.width, canvas.height, instructions);
+	let scene_1 = Scene_1(ctx, canvas.width, canvas.height, solo=true); //solo riding a motor cycle 
+	let scene_2 = Scene_2(ctx, canvas.width, canvas.height); //arriving at her front house
+	let scene_3 = Scene_3(ctx, canvas.width, canvas.height); //showing her inside her house
+	let scene_4 = Scene_4(ctx, canvas.width, canvas.height, instructions); //talking outside of her house and giving the cake to her
+	let scene_5 = Scene_1(ctx, canvas.width, canvas.height, solo=false); //couple riding a motor cycle
+	let scene_6 = Scene_6(ctx, canvas.width, canvas.height, instructions); //giving the envelope to her at the beach in midnight.
 
 	function change_scene(scene_no) {
 		ctx.fillStyle = '#AEE9FC';
@@ -93,19 +93,21 @@ const Canvas = () => {
 			draw_last_part("For the last part! Enjoy!");
 		}
 
-		scene_timer_last = new Date().getTime();
+		scene_timer_last = new Date().getTime(); //start the timer after changing scene
 	}
 
 
-	function transition() {
-		if(opacity > 0.01 && !fadein_bool){
-			opacity -= .02;
-		}else if(opacity <= 0){  //if less than 0.01 then, clear rect, and turn off scene 1
-			fadein_bool = true;
+	function transition(condition) {	//if condition met, canvas screen fade out
+		if(condition){
+			if(opacity > 0.01 && !fadein_bool){
+				opacity -= .02;
+			}else if(opacity <= 0){  //if less than 0.01 or equal to zero then, clear rect, fade in
+				fadein_bool = true;
+			}
 		}
 	}
 
-	function draw_last_part(instruc) {
+	function draw_last_part(instruc) { //draw black canvas at the last part
 		ctx.fillStyle = '#111';
 		ctx.fillRect(0,0,canvas.width, canvas.height);
 		ctx.fillStyle = '#AEE9FC';
@@ -116,20 +118,16 @@ const Canvas = () => {
 	}
 
 
-	function animate() {
-		ctx.clearRect(0, 0, canvas.width, canvas.height)
+	function animate() {	//call repeatedly 
+		ctx.clearRect(0, 0, canvas.width, canvas.height) //reset images on canvas
 		currentTime = new Date().getTime();
 		time_gap = currentTime - scene_timer_last;
 
 		if(scene_count == 1) {
 			scene_1.draw_travel(time_gap);	
+			transition(condition = time_gap >= 8000);
 
-			if(time_gap >= 8000) {
-				window.removeEventListener('keydown', canvas_event.bind(event), true)
-				transition();
-			}
-
-			if(click_key) {
+			if(click_key) {	//if s is click, then start moving the motorcycle, else, display instruction one
 				scene_1.scene1_moving(time_gap);
 			}else if(!click_key) {
 				scene_1.display_instruction(instructions.first)
@@ -139,77 +137,62 @@ const Canvas = () => {
 
 		if(scene_count == 2) {
 			scene_2.draw_front_home();
-			scene_2.check();
+			scene_2.check(); //move the image, or take action
 
-			if(scene_2.getBoy_x() >= 370 && (time_gap >= 7000) ) {
-				transition();
-			}
+			transition(condition = scene_2.getBoy_x() >= 370 && (time_gap >= 7000));
 		}
 
 
 		if(scene_count == 3){
 			scene_3.draw_inside_home(currentTime, scene_timer_last);
-			if(time_gap >= 3200) {
-				transition();
-			}
+			transition(time_gap >= 3200);
 		}
 
 		if(scene_count == 4) {
 			scene_4.draw_outside_home(time_gap, currentTime) 
-
-			if(scene_4.getLocal_time_gap() >= 18000) {
-				transition();
-			}
+			transition(scene_4.getLocal_time_gap() >= 18000);
 		}
 
 		if(scene_count == 5) {
 			scene_5.draw_travel(time_gap);
-			scene_5.scene1_moving(time_gap);
-
-			if(time_gap >= 10000) {
-				transition();
-			}
+			scene_5.scene1_moving(time_gap); //automatically move the motorcycle in scene 5
+			transition(time_gap >= 10000);
 		}
 
 		if(scene_count == 6) {
 			scene_6.draw_beach(time_gap, currentTime);
-
-			console.log(scene_6.get_local_time_gap())
-			if(scene_6.get_local_time_gap() >= 7000) {
-				transition();
-			}
+			transition(scene_6.get_local_time_gap() >= 7000);
 		}
 
 		if(scene_count == 7) {
 			draw_last_part("For the last part! Enjoy!");
 
-			if(time_gap >= 4000) {
+			if(time_gap >= 4000) { //after 4 seconds on black canvas, remove canvas and stop bg music
 				remove_canvas = true;
-				fadeOutMusic(bg_music);
-				main.style.background = "linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(50, 24, 111, 0.2) 100%), url('./assets/img/couple.jpg')"
 				gsap.to('canvas', {duration: 1, scale: 0, opacity: 0, ease: 'sine.out'});
 				gsap.to('.greeting-title', {duration: 1, y: -100, opacity: 0, ease: 'sine.out'});
 				gsap.to('.blur-bg', {duration: 0.4, delay:0.6, opacity:0 });
-				
+				gsap.to('.lastpart', {duration:1, delay:0.5, display:'flex'});
+				fadeOutMusic(bg_music);
+				last_part_bg_music.play();
+				bg_music.volume = vol;
+				setTimeout(Last_part().show(), 2000);
 			}
 		}
-
 
 		if(fadein_bool) { //fade_in
 			change_scene(scene_count);
-			if (opacity <= 1) opacity += 0.009;
+			if (opacity <= 1) opacity += 0.009;	
 			if(opacity > 1) {
 				opacity = 1;
 				fadein_bool = false;
-				scene_count += 1;
+				scene_count += 1;	//after fade in, proceed to next scene
 			}
 		}
-
-
 		ctx.globalAlpha = opacity;
-
-		if(!remove_canvas) requestAnimationFrame(animate);					
+		if(!remove_canvas) requestAnimationFrame(animate);	//while the canvas is on the screen, continue calling the animate	
 	}
+
 
 	function fadeOutMusic (audio) {
 		setInterval(()=>{
@@ -226,14 +209,14 @@ const Canvas = () => {
 
 
 	function canvas_event(e) {
-		if (e.keyCode == 83 && !click_key && scene_count == 1){
+		if (e.keyCode == 83 && !click_key && scene_count == 1){  //if press 's' in scene 1
 			click_key = true;
 			scene_timer_last = new Date().getTime();
 			bg_music.play();
 			bg_music.volume = vol;
-		} else if(e.keyCode == 84 && scene_count == 4) {
+		} else if(e.keyCode == 84 && scene_count == 4) { //if press 't' in scene 4
 			scene_4.giving_cake()
-		} else if(e.keyCode == 71 && scene_count == 6) {
+		} else if(e.keyCode == 71 && scene_count == 6) { //if press 'g' in scene 6
 			scene_6.set_envelope_received(true);
 		}
 	} 
@@ -244,13 +227,13 @@ const Canvas = () => {
 
 };
 
-let count_close = 0;
+let count_close = 0; //this variable is a state where helps to track if the envelope button open click in scene 6
 const Envelope = () => {
 	const open_envelope_btn = document.querySelector('.open-it-circle');
 	let is_envelope_open = false;
 
 	function show() {
-		gsap.to('.envelope', {duration: 1, y:0, opacity: 1, scale: 1, ease: "slow(0.5, 0.7, false)"});
+		gsap.to('.envelope', {duration: 1, zIndex:1999, y:0, opacity: 1, scale: 1, ease: "slow(0.5, 0.7, false)"});
 	}
 
 	function open() {
@@ -264,7 +247,7 @@ const Envelope = () => {
 
 	function close() {
 		is_envelope_open = false;
-		count_close++;
+		count_close++; //increment after close
 		gsap.to('.envelope', {duration: 1, delay: 1.6, y: 0, ease: "slow(0.5, 0.7, false)"});
 		gsap.to('.top-side', {duration:1, delay: 1.6, rotationX: 160, zIndex: 6, ease: "sine.out"});
 		gsap.to('.envelope-content', {duration:1.5, y: 0, zIndex: 3, ease: "back.in(3)"});
@@ -275,7 +258,7 @@ const Envelope = () => {
 
 
 	function _event() {
-		open_envelope_btn.addEventListener('click', () => {
+		open_envelope_btn.addEventListener('click', () => { //the function inside will trigger if the button on the center of the envelope is clicked.
 			if(is_envelope_open) {
 				close();
 			}else if(!is_envelope_open) {
@@ -295,9 +278,9 @@ const Envelope = () => {
 
 
 (function () {
-	gsap.set('.envelope', {y:1000, opacity: 0, scale: 0.5,});	
-	gsap.set('.about', {y: 1000, opacity: 0});	
-	gsap.set('.open-envelope-btn', {y: 100, opacity:0});
+	gsap.set('.envelope', {y:1000, opacity: 0, scale: 0.5,});	//hide large envelope
+	gsap.set('.about', {y: 1000, opacity: 0});		//hide about section
+	gsap.set('.open-envelope-btn', {y: 100, opacity:0}); //hide button for scene 6
 	Home_event();
 	Envelope()._event();
 })();

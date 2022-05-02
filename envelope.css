@@ -2,12 +2,11 @@
 	width:  700px;
 	height:  400px;
 	background: #FF82CD;
-	cursor: pointer;
 	position:  absolute;
 	top: 50%;
 	left:  50%;
 	transform: translate(-50%,-50%);
-	z-index: 1111;
+	z-index: 6;
 }
 
 .top-side {
@@ -93,3 +92,11 @@
 	opacity: 0.6;
 }
 
+.envelope-content #from {
+	font-family: 'Kalam', cursive;
+	font-size: 1rem;
+	opacity: 0.4;
+	position:  absolute;
+	top: 10px;
+	left: 10px;
+}
