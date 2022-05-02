@@ -36,7 +36,7 @@ const Home_event = () => {
 
 const Canvas = () => {
 	const canvas = document.querySelector('canvas');
-	const bg_music = new Audio('./assets/sound/make_you_mine.mp4');
+	const bg_music = new Audio('./assets/sound/mym.mp3');
 	const last_part_bg_music = new Audio('./assets/sound/sky_full_of_stars.mp4');
 
 	const ctx = canvas.getContext('2d');
@@ -57,7 +57,7 @@ const Canvas = () => {
 	let first_instruc_width = undefined;
 	let instruc_width = 0;
 
-	let vol = 0.50;
+	let vol = 0.2;
 	let scene_count = 1;
 	let opacity = 1;
 	
@@ -172,8 +172,9 @@ const Canvas = () => {
 				gsap.to('canvas', {duration: 1, scale: 0, opacity: 0, ease: 'sine.out'});
 				gsap.to('.greeting-title', {duration: 1, y: -100, opacity: 0, ease: 'sine.out'});
 				gsap.to('.blur-bg', {duration: 0.4, delay:0.6, opacity:0 });
-				gsap.to('.lastpart', {duration:1, delay:0.5, display:'flex'});
+				gsap.set('.lastpart', {delay:0.5, display:'flex'});
 				fadeOutMusic(bg_music);
+				loop_audio(last_part_bg_music)
 				last_part_bg_music.play();
 				bg_music.volume = vol;
 				setTimeout(Last_part().show(), 2000);
@@ -191,6 +192,17 @@ const Canvas = () => {
 		}
 		ctx.globalAlpha = opacity;
 		if(!remove_canvas) requestAnimationFrame(animate);	//while the canvas is on the screen, continue calling the animate	
+	}
+
+	function loop_audio(audio) {
+		if (typeof audio.loop == 'boolean') {
+		    audio.loop = true;
+		}else {
+		    audio.addEventListener('ended', function() {
+		        this.currentTime = 0;
+		        this.play();
+		    }, false);
+		}
 	}
 
 
@@ -212,6 +224,7 @@ const Canvas = () => {
 		if (e.keyCode == 83 && !click_key && scene_count == 1){  //if press 's' in scene 1
 			click_key = true;
 			scene_timer_last = new Date().getTime();
+			loop_audio(bg_music);
 			bg_music.play();
 			bg_music.volume = vol;
 		} else if(e.keyCode == 84 && scene_count == 4) { //if press 't' in scene 4
