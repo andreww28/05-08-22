@@ -230,6 +230,7 @@ const Canvas = () => {
 
 	    function onLoad() {
 	    	loaded++;
+	    	console.log(loaded, images.length, loaded == images.length)
 	    	if(loaded == images.length) {
 	            setTimeout(()=>document.querySelector('.loading-page').style.display = 'none', 5000);
 	        }
