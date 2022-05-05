@@ -230,9 +230,11 @@ const Canvas = () => {
 
 	    function onLoad() {
 	    	loaded++;
-	    	console.log(loaded, images.length, loaded == images.length)
 	    	if(loaded == images.length) {
-	            setTimeout(()=>document.querySelector('.loading-page').style.display = 'none', 5000);
+	            setTimeout(()=>{
+	            	document.querySelector('.loading-page').style.display = 'none';
+					gsap.fromTo('.home', {y:100, opacity:0}, {duration:1.3, y: 0, opacity: 1, delay: 0.5});
+	            }, 5000);
 	        }
 	    }
 	    
