@@ -173,7 +173,7 @@ h1 {
 	padding: 1em;
 	width: 100%;
 	height:  100%;
-	background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(50, 24, 111, 0.2) 100%), url('./assets/img/sky_bg.jpg') no-repeat;
+	background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(50, 24, 111, 0.2) 100%), url('./assets/img/gold_bg.jpg') no-repeat;
 	background-size: cover;
 	z-index:  999;
 	display: none;
@@ -186,18 +186,24 @@ h1 {
 }
 
 .lastpart-title{
-	z-index: 999;
-	color: #AEE9FC;
-	font-family: 'Kalam', cursive;
-	font-weight: 700;
-	font-size: 4rem;
+	z-index: 9;
+	color: #edb42a;
+	font-family: 'Satisfy', cursive;
+	font-weight: 500;
+	font-size: 3.5rem;
 	position: absolute;
 	top:  20px;
+	line-height: 1.1;
 	text-align: center;
+	text-shadow: 3px 7px 6px #E79882;
+}
+
+.lastpart-title .name {
+	font-size:  2.8rem;
 }
 
 .pic-container {
-	margin-top: 2.5em;
+	margin-top: 3em;
 	width: 100%;
 	display: grid;
 	grid-template-rows: 1fr 1fr 1fr;
@@ -211,27 +217,27 @@ h1 {
 	height:  13em;
 	border-radius:  50%;
 	opacity:  0;
-	border: 5px solid #AEE9FC;
-	box-shadow: 3px 4px 10px 2px #C4C4C4;
+	border: 3px solid #FBCA67;
+	box-shadow: 3px 4px 10px 2px #D06A54;
 }	
 
 .pic-container .img-div:nth-child(1) {
 	grid-area: 1/1/2/2;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic1.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic1.jpg');
 	background-size: cover;
 	background-position:  center;
 }
 
 .pic-container .img-div:nth-child(2) {
 	grid-area: 3/1/4/2;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic2.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic2.jpg');
 	background-size: cover;
 	background-position:  center;
 }
 
 .pic-container .img-div:nth-child(3) {
 	grid-area: 2/2/3/3;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic3.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic4.jpg');
 	background-size: cover;
 	background-position:  center;
 }
@@ -241,28 +247,28 @@ h1 {
 	height:  25em;
 	border-radius:  70px;
 	grid-area: 1/3/4/4;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic4.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic3.jpg');
 	background-size: cover;
 	background-position:  center;
 }
 
 .pic-container .img-div:nth-child(5) {
 	grid-area: 2/4/3/5;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic5.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic5.jpg');
 	background-size: cover;
 	background-position:  center;
 }
 
 .pic-container .img-div:nth-child(6) {
 	grid-area: 1/5/2/6;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic6.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic6.jpg');
 	background-size: cover;
 	background-position:  center;
 }
 
 .pic-container .img-div:nth-child(7) {
 	grid-area: 3/5/4/6;
-	background: linear-gradient(0deg, rgba(8, 95, 161, 0.26), rgba(8, 95, 161, 0.26)), url('./assets/img/her/pic7.jpg');
+	background: linear-gradient(0deg, rgba(251, 202, 103, 0.17), rgba(251, 202, 103, 0.17)), url('./assets/img/her/pic7.jpg');
 	background-size: cover;
 	background-position:  center;
 }
@@ -276,4 +282,5 @@ h1 {
 	position: absolute;
 	left: 300px;
 	bottom: 10px;
+	border: #ba405c 5px solid;
 }

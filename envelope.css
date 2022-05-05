@@ -1,7 +1,7 @@
 .envelope {
 	width:  700px;
 	height:  400px;
-	background: #FF82CD;
+	background: #FFDF9F;
 	position:  absolute;
 	top: 50%;
 	left:  50%;
@@ -10,7 +10,7 @@
 }
 
 .top-side {
-	border-bottom:  250px solid #B73884;
+	border-bottom:  250px solid #FBCA67;
 	top: -250px;
 	transform-origin: bottom;
 	z-index:  6;
@@ -20,13 +20,13 @@
 .open-it-circle {
 	padding: 0.2em;
 	font-size:  1rem;
-	color: #fff;
+	color: #d47f08;
 	width: 50px;
 	height: 50px;
 	border: none;
 	outline: none;
 	border-radius: 50%;
-	background: #BF5595;
+	background: #FFEFCE;
 	position: absolute;
 	left: 50%;
 	bottom:  -30px;
@@ -34,7 +34,7 @@
 }
 
 .bottom-side {
-	border-bottom:  250px solid #9B0760;
+	border-bottom:  250px solid #F8CF7F;
 	position:  absolute !important;
 	bottom: 0;
 	z-index:  4;
@@ -47,13 +47,13 @@
 }
 
 .left-side {
-	border-left:  325px solid #BF5595;
+	border-left:  325px solid #FFEAC0;
 	position:  absolute;
 	left:  0;
 }
 
 .right-side {
-	border-right:  325px solid #B70E73;
+	border-right:  325px solid #FFEECC;
 	position:  absolute;
 	right:  0;
 }
@@ -67,7 +67,7 @@
 
 .envelope-content {
 	padding: 3em 2em;
-	background: #E0A8C9;
+	background: #fdfbf1;
 	width:  90%;
 	height:  80%;
 	position: absolute;
@@ -77,13 +77,13 @@
 	z-index:  3;
 	font-family: 'Satisfy', cursive;
 	text-align: center;
-	color: #bf5595;
+	color: #d4a266;
 	font-size: 1.5rem;
 	overflow: hidden;
 }
 
 .envelope-content h4 {
-	color: #b70e73;
+	color: #d0861d;
 	font-size: 2.4rem;
 }
 

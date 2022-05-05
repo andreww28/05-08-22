@@ -27,7 +27,7 @@ const Last_part = () => {
 
 
 		gsap.fromTo(images[3], {opacity:0, scale:0}, {duration:3, scale:1, opacity:1, delay:2.5*7.5, ease: "back.out(3)"});
-		gsap.fromTo('.lastpart-title', {y:500, opacity:0, scale:0, color: 'pink'}, {duration:1.5, opacity:1, y:0, scale:1, color: '#AEE9FC', delay: 2.5*7.5 +2})
+		gsap.fromTo('.lastpart-title', {y:500, opacity:0, scale:0, color: '#fff'}, {duration:1.5, opacity:1, y:0, scale:1, color: '#edb42a', delay: 2.5*7.5 +2})
 		gsap.to('.small-env', {duration: 0.6, opacity:1, delay: 2.8*7.5})
 	}
 

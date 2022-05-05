@@ -36,8 +36,8 @@ const Home_event = () => {
 
 const Canvas = () => {
 	const canvas = document.querySelector('canvas');
-	const bg_music = new Audio('./assets/sound/mym.mp3');
-	const last_part_bg_music = new Audio('./assets/sound/sky_full_of_stars.mp4');
+	const bg_music = document.querySelector('#bg_music');
+	const last_part_bg_music = document.querySelector('#last_bg_music');
 
 	const ctx = canvas.getContext('2d');
 	const height_ratio = 0.6;	
@@ -174,7 +174,6 @@ const Canvas = () => {
 				gsap.to('.blur-bg', {duration: 0.4, delay:0.6, opacity:0 });
 				gsap.set('.lastpart', {delay:0.5, display:'flex'});
 				fadeOutMusic(bg_music);
-				loop_audio(last_part_bg_music)
 				last_part_bg_music.play();
 				bg_music.volume = vol;
 				setTimeout(Last_part().show(), 2000);
@@ -193,18 +192,7 @@ const Canvas = () => {
 		ctx.globalAlpha = opacity;
 		if(!remove_canvas) requestAnimationFrame(animate);	//while the canvas is on the screen, continue calling the animate	
 	}
-
-	function loop_audio(audio) {
-		if (typeof audio.loop == 'boolean') {
-		    audio.loop = true;
-		}else {
-		    audio.addEventListener('ended', function() {
-		        this.currentTime = 0;
-		        this.play();
-		    }, false);
-		}
-	}
-
+	
 
 	function fadeOutMusic (audio) {
 		setInterval(()=>{
@@ -224,7 +212,6 @@ const Canvas = () => {
 		if (e.keyCode == 83 && !click_key && scene_count == 1){  //if press 's' in scene 1
 			click_key = true;
 			scene_timer_last = new Date().getTime();
-			loop_audio(bg_music);
 			bg_music.play();
 			bg_music.volume = vol;
 		} else if(e.keyCode == 84 && scene_count == 4) { //if press 't' in scene 4

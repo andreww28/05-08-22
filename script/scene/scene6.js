@@ -12,7 +12,7 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 	empty_beach.src = './assets/img/empty_beach.jpg';
 	boy_character.src = './assets/img/main_anime_boy1.png';
 	girl_character.src = './assets/img/main_anime_girl2.png';
-	envelope.src = './assets/img/envelope_letter.png';
+	envelope.src = './assets/img/envelope.png';
 	shy_emoji.src = './assets/img/emoji/emoji10.png'
 	happy_emoji.src = './assets/img/emoji/emoji11.png'
 	thankful_emoji.src = './assets/img/emoji/emoji7.png'
