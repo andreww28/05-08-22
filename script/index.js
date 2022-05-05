@@ -221,8 +221,28 @@ const Canvas = () => {
 		}
 	} 
 
+	function load_all_imgs() {
+		let images = scene_1.get_img_obj().concat(scene_2.get_img_obj(), scene_3.get_img_obj(), scene_4.get_img_obj(), scene_6.get_img_obj());
+
+		var loaded = 0;
+		var last_time = 0;
+		var currentTime = 0;
+
+	    function onLoad() {
+	    	loaded++;
+	    	if(loaded == images.length) {
+	            setTimeout(()=>document.querySelector('.loading-page').style.display = 'none', 5000);
+	        }
+	    }
+	    
+		images.forEach(img => {
+			img.addEventListener("load", onLoad);
+		})
+	}
+
 	return {
 		animate,
+		load_all_imgs,
 	}
 
 };
@@ -283,4 +303,5 @@ const Envelope = () => {
 	gsap.set('.open-envelope-btn', {y: 100, opacity:0}); //hide button for scene 6
 	Home_event();
 	Envelope()._event();
+	Canvas().load_all_imgs();
 })();

@@ -10,9 +10,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <link rel="stylesheet" href='./style.css'>
     <link rel="stylesheet" href='./envelope.css'>
+    <link rel="stylesheet" href='./loading_heart.css'>
     <title>Greetings</title>
   </head>
   <body>
+    <div class="loading-page">
+      <div class="spinner">
+        <div class="heart heart1"></div>
+        <div class="heart heart2"></div>
+        <div class="heart heart3"></div>
+      </div>
+      <p id="loading-text">LOADING...</p>
+    </div>
+
     <div class="home-container">
       <div class="main">
         <div class='canvas-div'>
@@ -76,13 +86,13 @@
 
     <audio id="bg_music" src="./assets/sound/mym.mp3" loop="loop"></audio>
     <audio id="last_bg_music" src="./assets/sound/sky_full_of_stars.mp4" loop="loop"></audio>
-    
-    <script src='./script/index.js'></script>
-    <script src='./script/last_part.js'></script>
+
     <script src='./script/scene/scene1.js'></script>
     <script src='./script/scene/scene2.js'></script>
     <script src='./script/scene/scene3.js'></script>
     <script src='./script/scene/scene4.js'></script>
     <script src='./script/scene/scene6.js'></script>
+    <script src='./script/last_part.js'></script>
+    <script src='./script/index.js'></script>
   </body>
 </html>

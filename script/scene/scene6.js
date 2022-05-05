@@ -25,6 +25,10 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 	let show_btn = false;
 	let envelope_open = false;
 
+	function get_img_obj() {
+		return [empty_beach, boy_character, girl_character, envelope, shy_emoji, happy_emoji, thankful_emoji];
+	}
+
 	function display_instruction(instruc) {
 		ctx.fillStyle = '#fff';
 		instruc_width = ctx.measureText(instruc).width;
@@ -84,6 +88,7 @@ const Scene_6 = (ctx, canvas_width, canvas_height, instructions) => {
 
 	return {
 		draw_beach,
+		get_img_obj,
 		set_envelope_received : (bool) => envelope_received = bool,
 		set_envelope_open : (bool) => envelope_open = bool,
 		get_local_time_gap: () => enve_close_gap_time

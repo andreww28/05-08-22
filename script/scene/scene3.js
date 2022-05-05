@@ -3,11 +3,15 @@ const Scene_3 = (ctx, canvas_width, canvas_height) => {
 	const inside_house = new Image();
 	const angry_emoji = new Image();
 
-	girl_inside.src = './assets/img/main_anime_girl2.png'
-	inside_house.src = './assets/img/inside_house.jpg'
+	girl_inside.src = './assets/img/main_anime_girl2.png';
+	inside_house.src = './assets/img/inside_house.jpg';
 	angry_emoji.src = './assets/img/emoji/emoji_2.png';
 
 	let time_gap;
+
+	function get_img_obj() {
+		return [girl_inside, inside_house, angry_emoji];
+	}
 
 	function draw_inside_home(currentTime, scene_timer_last) {
 		ctx.drawImage(inside_house, 0,0, canvas_width, canvas_height);
@@ -22,5 +26,6 @@ const Scene_3 = (ctx, canvas_width, canvas_height) => {
 
 	return {
 		draw_inside_home,
+		get_img_obj
 	}
 }

@@ -17,6 +17,10 @@ const Scene_1 = (ctx, canvas_width, canvas_height, solo) => {
 	couple_motor.src = './assets/img/couple_motor.png';
 	releived_emoji.src = './assets/img/emoji/emoji9.png';
 
+	function get_img_obj() {
+		return [background_layer1, road, solo_motor, couple_motor, releived_emoji]
+	}
+
 	function display_instruction(first_instruc) {	
 		ctx.fillStyle = '#fff';
 		first_instruc_width = ctx.measureText(first_instruc).width //get the width of the text
@@ -63,6 +67,7 @@ const Scene_1 = (ctx, canvas_width, canvas_height, solo) => {
 	return {
 		draw_travel, 
 		scene1_moving,
-		display_instruction
+		display_instruction,
+		get_img_obj
 	}
 }

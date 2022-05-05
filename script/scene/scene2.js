@@ -15,6 +15,10 @@ const Scene_2 = (ctx, canvas_width, canvas_height) => {
 	let boy_speed = 3;
 	let boy_y = canvas_height - 220;
 
+	function get_img_obj() {
+		return [front_house,bush, boy_side_view, boy_back_view, emoji_1];
+	}
+
 
 	function draw_front_home() {
 		ctx.drawImage(front_house, 0, 0, canvas_width, canvas_height);
@@ -47,6 +51,7 @@ const Scene_2 = (ctx, canvas_width, canvas_height) => {
 	return {
 		draw_front_home,
 		check,
+		get_img_obj,
 		getBoy_x : () => boy_x,
 	}
 }

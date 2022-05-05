@@ -34,6 +34,13 @@ const Scene_4 = (ctx, canvas_width, canvas_height, instructions) => {
 	let time_last = undefined;
 	let local_time_gap = undefined; 
 
+
+	function get_img_obj() {
+		return [front_house, boy_back_view, girl_front_view, boy_side_view, girl_side_view,
+				thumbs_down_emoji, cute_angry_emoji, look_down_emoji, smile_emoji, float_heart_emoji, feeling_love_emoji, cake
+			]
+	}
+
 	function display_instruction(second_instruc) {
 		ctx.fillStyle = '#fff';
 		second_instruc_width = ctx.measureText(second_instruc).width
@@ -98,6 +105,7 @@ const Scene_4 = (ctx, canvas_width, canvas_height, instructions) => {
 
 	return {
 		draw_outside_home,
+		get_img_obj,
 		giving_cake: () => take_cake = true,
 		getLocal_time_gap : () => local_time_gap
 	}
