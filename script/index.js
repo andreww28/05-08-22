@@ -234,6 +234,10 @@ const Canvas = () => {
 	            setTimeout(()=>{
 	            	document.querySelector('.loading-page').style.display = 'none';
 					gsap.fromTo('.home', {y:100, opacity:0}, {duration:1.3, y: 0, opacity: 1, delay: 0.5});
+	            	gsap.fromTo('.home-title', {y:-100, opacity: 0}, {duration: 1, y:0, opacity:1, delay:1});
+					gsap.fromTo('.start-btn', {y:100, opacity:0}, {duration:1, y: 0, opacity: 1, delay: 1.8});
+					gsap.fromTo('.about-btn', {y:100, opacity:0}, {duration:1, y: 0, opacity: 1, delay: 2.6});
+
 	            }, 5000);
 	        }
 	    }
